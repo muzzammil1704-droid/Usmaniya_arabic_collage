@@ -1,1173 +1,1047 @@
-
 <!DOCTYPE html>
 <html lang="ta">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>உஸ்மானியா · 3D · தஹஜ்ஜுத்</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>உஸ்மானியா · தஹஜ்ஜுத்</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            background: radial-gradient(ellipse at 30% 40%, #0e3129, #041a14 90%);
-            font-family: 'Tajawal', 'Amiri', sans-serif;
+            background: linear-gradient(135deg, #0d3329 0%, #051a14 100%);
+            font-family: 'Tajawal', sans-serif;
             min-height: 100vh;
             padding: 1rem;
-            color: #fbefcf;
-            perspective: 1000px;
-            font-size: 14px;
+            color: #f5e6c8;
         }
 
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
+        .container { max-width: 1200px; margin: 0 auto; }
 
-        /* Header */
-        .dome-header {
-            background: linear-gradient(165deg, #1b4538, #0e2f26);
-            border-radius: 60px 60px 30px 30px;
-            padding: 1.2rem 2rem;
-            margin-bottom: 1.8rem;
-            box-shadow: 0 20px 25px -15px #000, inset 0 -4px 6px rgba(255,215,140,0.2), 0 0 0 2px #b69048, 0 0 0 5px #3f6253;
-            border: 2px solid #c9a75a;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .header-title h1 {
-            font-size: 1.9rem;
-            font-weight: 700;
-            text-shadow: 0 1px 0 #744c24, 0 2px 0 #3f2e12, 0 5px 8px black;
-            color: #f7dfa6;
-        }
-
-        .header-title h1 i {
-            color: #f3c15a;
-            margin-right: 8px;
-        }
-
-        .gold-chip-3d {
-            background: #b48b3a;
-            padding: 0.5rem 1.2rem;
-            border-radius: 50px 10px 50px 10px;
-            border: 2px solid #f2da84;
-            box-shadow: 6px 8px 12px -8px black;
-            font-weight: 600;
-            color: #172e1d;
-        }
-
-        .edit-icon-btn {
-            background: rgba(255,215,0,0.2);
-            border: 2px solid #f2da84;
-            border-radius: 30px;
-            padding: 0.3rem 0.8rem;
-            cursor: pointer;
-            color: #ffefc0;
-        }
-
-        /* Months Grid */
-        .months-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 0.9rem;
-            margin: 1.5rem 0;
-        }
-
-        .month-3d {
-            background: #17312b;
-            border: 2px solid #b28f47;
-            border-radius: 30px 5px 30px 5px;
-            padding: 1.2rem 0.3rem;
+        .header {
+            background: linear-gradient(145deg, #1a4d3d, #0f2e25);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 2px solid #c9a227;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             text-align: center;
-            box-shadow: 0 12px 0 #0b201b;
+        }
+
+        .header h1 {
+            color: #f0c674;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .year-badge {
+            background: #c9a227;
+            color: #1a2f1a;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .month-3d:hover {
-            transform: translateY(-2px);
+        .year-badge:hover {
+            background: #f0c674;
+            transform: scale(1.05);
         }
 
-        .month-3d.active {
-            background: #235542;
-            border-color: #f5c664;
-            box-shadow: 0 12px 0 #174233, 0 0 20px #f8cf6e;
+        .edit-icon {
+            font-size: 0.8rem;
         }
 
-        .month-3d i { 
-            font-size: 1.9rem; 
-            color: #f0bc5b; 
-            margin-bottom: 0.5rem;
+        /* JSON Buttons */
+        .json-bar {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
         }
 
-        /* Section Header with Back Button */
+        .json-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .json-btn:hover { transform: scale(1.05); }
+
+        .json-export {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+        }
+
+        .json-import {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            position: relative;
+        }
+
+        .json-import input {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .month-card {
+            background: #143d32;
+            border: 2px solid #b8941d;
+            border-radius: 15px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .month-card:hover { transform: translateY(-5px); background: #1a4d3d; }
+        .month-card.active { background: #1e5c4a; border-color: #f0c674; box-shadow: 0 0 20px rgba(240,198,116,0.3); }
+
+        .month-card i { font-size: 2rem; color: #f0c674; margin-bottom: 0.5rem; }
+        .month-card .month-name { font-weight: bold; font-size: 1.1rem; }
+
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.3s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #15352b;
-            border: 3px solid #b69048;
-            border-radius: 60px 15px 60px 15px;
-            padding: 0.5rem 1.5rem;
-            margin: 1rem 0;
-            box-shadow: 0 12px 0 #0a211b;
+            background: #143d32;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border: 2px solid #b8941d;
         }
 
-        .btn-3d, .back-btn-3d {
-            background: #2c604b;
-            border: 2px solid #edc76e;
-            border-radius: 30px 2px 30px 2px;
-            padding: 0.6rem 1.2rem;
-            box-shadow: 0 6px 0 #194433;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.1s;
+        .btn {
+            background: #c9a227;
+            color: #0d3329;
             border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
             font-family: inherit;
+            transition: all 0.2s;
         }
 
-        .btn-3d:active, .back-btn-3d:active { 
-            transform: translateY(4px); 
-            box-shadow: 0 2px 0 #194433; 
-        }
+        .btn:hover { background: #f0c674; transform: scale(1.05); }
 
-        .btn-3d:hover, .back-btn-3d:hover {
-            background: #357a5c;
-        }
-
-        /* Days Grid */
         .days-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-            gap: 0.7rem;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 0.8rem;
         }
 
-        .day-cube {
-            background: #1b4338;
-            border: 2px solid #c09f52;
-            border-radius: 18px 3px 18px 3px;
-            padding: 0.7rem 0.1rem;
+        .day-card {
+            background: #1a4d3d;
+            border: 2px solid #b8941d;
+            border-radius: 12px;
+            padding: 1rem;
             text-align: center;
-            box-shadow: 0 7px 0 #0f2b21;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .day-cube:hover {
-            transform: translateY(-2px);
-        }
+        .day-card:hover { background: #236b54; }
+        .day-card.active { background: #2d8568; border-color: #f0c674; }
 
-        .day-cube.active {
-            background: #2d624b;
-            border-color: #f8cf6e;
-            box-shadow: 0 8px 0 #1f4635, 0 0 16px #f3c35e;
-        }
+        .day-number { font-size: 1.8rem; font-weight: bold; color: #f0c674; }
+        .day-week { font-size: 0.85rem; opacity: 0.8; margin-top: 0.3rem; }
 
-        .day-cube .big-number { 
-            font-size: 1.6rem; 
-            font-weight: 800; 
-            color: #f5d889; 
-        }
-
-        /* Jumra Panel */
-        .jumra-panel {
+        .jumra-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
-            margin: 1.5rem 0;
         }
 
-        .jumra-3d {
-            background: #19473b;
-            border: 3px solid #d1a952;
-            border-radius: 40px 5px 40px 5px;
-            padding: 1.3rem 0.3rem;
+        .jumra-card {
+            background: #1a4d3d;
+            border: 3px solid #c9a227;
+            border-radius: 20px;
+            padding: 2rem 1rem;
             text-align: center;
-            box-shadow: 0 15px 0 #103529;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
-        .jumra-3d:hover {
-            transform: translateY(-3px);
-        }
+        .jumra-card:hover { transform: translateY(-5px); }
+        .jumra-card.active { background: #236b54; box-shadow: 0 0 25px rgba(201,162,39,0.4); }
 
-        .jumra-3d.active {
-            background: #22634e;
-            border-color: #f8cf6e;
-            box-shadow: 0 16px 0 #154434, 0 0 28px #fad266;
-        }
+        .jumra-number { font-size: 3rem; font-weight: bold; color: #f0c674; }
+        .jumra-name { font-size: 1.1rem; margin: 0.5rem 0; }
+        .student-count { background: #0d3329; padding: 0.3rem 1rem; border-radius: 15px; font-size: 0.9rem; }
 
-        .jumra-num-3d {
-            font-size: 2.6rem;
-            font-weight: 800;
-            color: #f5c85e;
-            text-shadow: 2px 4px 0 #4f351a;
-        }
-
-        .student-badge-3d {
-            background: #1a4032;
-            padding: 0.3rem 1rem;
-            border-radius: 30px 2px 30px 2px;
-            border: 2px solid #eac46b;
-            display: inline-block;
-            margin-top: 0.5rem;
-        }
-
-        /* Stats Panel with Back Button */
-        .stats-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .stats-zone {
+        .stats-bar {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 1rem;
-            margin: 1rem 0;
+            margin-bottom: 1.5rem;
         }
 
-        .stat-3d {
-            background: #1a3a31;
-            border: 2px solid #c3a256;
-            border-radius: 22px 2px 22px 2px;
-            padding: 1rem 0.2rem;
+        .stat-box {
+            background: #143d32;
+            border: 2px solid #b8941d;
+            border-radius: 15px;
+            padding: 1rem;
             text-align: center;
-            box-shadow: 0 10px 0 #0e2c22;
         }
 
-        .stat-3d i { 
-            font-size: 1.8rem; 
-            color: #f6cc74; 
-            margin-bottom: 0.5rem;
-        }
+        .stat-box i { color: #f0c674; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .stat-value { font-size: 1.5rem; font-weight: bold; color: #f0c674; }
 
-        .stat-number-3d { 
-            font-size: 1.7rem; 
-            font-weight: 700; 
-            color: #fce19c; 
-            margin: 0.3rem 0;
-        }
-
-        /* Action Bar */
-        .action-bar-3d {
+        .toolbar {
             display: flex;
+            gap: 0.8rem;
             flex-wrap: wrap;
-            gap: 0.6rem;
-            background: #1b4136;
-            border: 2px solid #be9d55;
-            border-radius: 60px 8px 60px 8px;
-            padding: 0.9rem 1.4rem;
-            margin: 1.5rem 0;
-            box-shadow: 0 12px 0 #0e2f25;
+            margin-bottom: 1.5rem;
+            background: #143d32;
+            padding: 1rem;
+            border-radius: 15px;
+            border: 2px solid #b8941d;
         }
 
-        .search-3d {
-            flex: 2;
+        .search-box {
+            flex: 1;
             min-width: 200px;
-            background: #255344;
-            border: 2px solid #d6b160;
-            border-radius: 40px 2px 40px 2px;
+            background: #0d3329;
+            border: 2px solid #b8941d;
+            border-radius: 25px;
             padding: 0.7rem 1.2rem;
-            color: #fff7df;
-            box-shadow: inset 0 2px 5px #0a1f19, 0 4px 0 #1e4a38;
+            color: #f5e6c8;
             font-family: inherit;
         }
 
-        .search-3d::placeholder {
-            color: #a8c4b8;
-        }
-
-        /* Table */
-        .table-wrapper-3d {
-            background: #12342b;
-            border: 4px solid #b5934b;
-            border-radius: 40px 5px 40px 5px;
-            padding: 0.8rem;
-            box-shadow: 0 20px 0 #0b261f;
+        .table-container {
+            background: #143d32;
+            border: 3px solid #b8941d;
+            border-radius: 20px;
+            padding: 1rem;
             overflow-x: auto;
         }
 
-        table { 
-            width: 100%; 
-            border-collapse: separate; 
-            border-spacing: 0 4px; 
-            font-size: 0.85rem; 
-        }
-
+        table { width: 100%; border-collapse: collapse; }
+        
         th {
-            background: #225743;
-            color: #fcf0ca;
-            padding: 0.5rem 0.2rem;
-            border: 2px solid #ddb868;
-            border-radius: 20px 0px 20px 0px;
-            box-shadow: 0 4px 0 #163e2f;
+            background: #1a4d3d;
+            padding: 0.8rem 0.5rem;
+            border: 2px solid #b8941d;
+            border-radius: 10px;
+            color: #f0c674;
         }
 
         td {
-            background: #1a4a3b;
-            border: 2px solid #caaa5f;
-            border-radius: 15px 0px 15px 0px;
-            padding: 0.3rem 0.1rem;
-            box-shadow: 0 4px 0 #10372a;
+            background: #1e5c4a;
+            padding: 0.6rem 0.4rem;
+            border: 2px solid #b8941d;
+            border-radius: 8px;
             text-align: center;
         }
 
-        .student-3d { 
-            font-weight: 600; 
-            cursor: pointer; 
-            text-align: left; 
-            padding-left: 0.5rem;
-            color: #f7dfa6;
-        }
-
-        .student-3d:hover {
-            color: #f3c15a;
-        }
-
-        .prayer-btn-3d {
-            width: 34px;
-            height: 34px;
-            border-radius: 16px 1px 16px 1px;
-            border: 2px solid #e0bc6c;
-            background: #1a543f;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 0 #123a2b;
+        .student-name {
+            text-align: left;
+            padding-left: 1rem;
+            font-weight: 600;
             cursor: pointer;
+        }
+
+        .prayer-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            border: 2px solid #c9a227;
+            background: #143d32;
             color: white;
+            cursor: pointer;
+            font-size: 1rem;
             transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .prayer-btn-3d:hover {
-            transform: translateY(-2px);
-        }
+        .prayer-btn.prayed { background: #27ae60; }
+        .prayer-btn.missed { background: #e74c3c; }
+        .prayer-btn.partial { background: #f39c12; }
 
-        .prayer-btn-3d.prayed { 
-            background: #1c855b; 
-            border-color: #b9f07c; 
-        }
-
-        .prayer-btn-3d.missed { 
-            background: #aa4242; 
-            border-color: #ffa3a3; 
-        }
-
-        .prayer-btn-3d.partial { 
-            background: #36759c; 
-            border-color: #fad675; 
-        }
-
-        .amount-positive {
-            color: #7ec97e;
-            font-weight: 700;
-        }
-
-        .amount-negative {
-            color: #ff8a8a;
-            font-weight: 700;
-        }
+        .amount { font-weight: bold; }
+        .amount.positive { color: #2ecc71; }
+        .amount.negative { color: #e74c3c; }
 
         .delete-btn {
             background: transparent;
             border: none;
-            color: #ffa07a;
-            font-size: 1.2rem;
+            color: #e74c3c;
             cursor: pointer;
-            padding: 0.2rem;
-            border-radius: 10px;
-            transition: all 0.2s;
-        }
-        .delete-btn:hover {
-            color: #ff4d4d;
-            transform: scale(1.1);
+            font-size: 1.2rem;
         }
 
-        /* Modal */
-        .modal-islamic {
+        .modal-overlay {
             display: none;
             position: fixed;
-            inset: 0;
-            background: rgba(0,15,5,0.9);
-            backdrop-filter: blur(5px);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
             align-items: center;
             justify-content: center;
-            z-index: 2000;
+            z-index: 1000;
         }
 
-        .modal-3d-content {
-            background: #214b3c;
-            border: 4px solid #ecc472;
-            border-radius: 60px 6px 60px 6px;
-            padding: 1.6rem;
+        .modal-overlay.active { display: flex; }
+
+        .modal-box {
+            background: linear-gradient(145deg, #1a4d3d, #0f2e25);
+            border: 3px solid #c9a227;
+            border-radius: 25px;
+            padding: 2rem;
             max-width: 400px;
             width: 90%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            text-align: center;
         }
 
-        .prayer-opt-3d {
-            background: #225a44;
-            border: 3px solid #f5cf7c;
-            border-radius: 30px 2px 30px 2px;
-            padding: 0.8rem;
-            min-width: 90px;
-            text-align: center;
-            box-shadow: 0 6px 0 #1b422f;
+        .modal-title { color: #f0c674; margin-bottom: 1.5rem; font-size: 1.3rem; }
+
+        .prayer-options {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+
+        .prayer-option {
+            background: #143d32;
+            border: 3px solid #b8941d;
+            border-radius: 15px;
+            padding: 1rem;
+            min-width: 100px;
             cursor: pointer;
             transition: all 0.2s;
-            color: #fbefcf;
         }
 
-        .prayer-opt-3d:hover {
-            transform: translateY(-3px);
-            background: #2a6b52;
+        .prayer-option:hover { background: #1e5c4a; transform: scale(1.05); }
+
+        .prayer-option .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+
+        .input-field {
+            width: 100%;
+            background: #0d3329;
+            border: 2px solid #b8941d;
+            border-radius: 10px;
+            padding: 0.8rem;
+            color: #f5e6c8;
+            font-family: inherit;
+            margin: 1rem 0;
         }
 
-        .hidden { 
-            display: none !important; 
-        }
+        .hidden { display: none !important; }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .dome-header {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-            
-            .header-title h1 {
-                font-size: 1.4rem;
-            }
-            
-            .months-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-            
-            .stats-zone {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .header h1 { font-size: 1.5rem; }
+            .months-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .toolbar { flex-direction: column; }
+            .json-bar { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- Header with Edit -->
-    <div class="dome-header">
-        <div class="header-title">
-            <h1 id="collegeTitle"><i class="fas fa-mosque"></i> உஸ்மானிய அரபிக் கல்லூரி</h1>
-            <span class="edit-icon-btn" onclick="openCollegeEditModal()"><i class="fas fa-pen"></i> திருத்து</span>
-        </div>
-        <div class="gold-chip-3d">
-            <i class="fas fa-calendar-alt"></i> <span id="yearText">மார்ச் 2026 – மார்ச் 2027</span> · 125
-        </div>
-    </div>
-
-    <!-- Months -->
-    <div id="monthsContainer" class="months-grid"></div>
-
-    <!-- Days -->
-    <div id="daysSection" class="hidden">
-        <div class="section-header">
-            <h2 id="daysTitle"></h2>
-            <button class="btn-3d" onclick="showMonths()"><i class="fas fa-arrow-left"></i> மாதங்கள்</button>
-        </div>
-        <div id="daysGrid" class="days-grid"></div>
-    </div>
-
-    <!-- Jumra -->
-    <div id="jumraSection" class="hidden">
-        <div class="section-header">
-            <h2 id="jumraTitle"></h2>
-            <button class="btn-3d" onclick="showDays()"><i class="fas fa-arrow-left"></i> நாட்கள்</button>
-        </div>
-        <div id="jumraContainer" class="jumra-panel"></div>
-    </div>
-
-    <!-- Stats & Table -->
-    <div id="statsPanel" style="display: none;">
-        <div class="stats-header">
-            <h2>📊 மாணவர் விவரம்</h2>
-            <button class="back-btn-3d" onclick="backToJumra()"><i class="fas fa-arrow-left"></i> ஜும்ரா தேர்வு</button>
-        </div>
-        
-        <div class="stats-zone">
-            <div class="stat-3d"><i class="fas fa-calendar-check"></i><div class="stat-number-3d" id="statDate">-</div><div>தேதி</div></div>
-            <div class="stat-3d"><i class="fas fa-moon"></i><div class="stat-number-3d" id="statJumra">-</div><div>ஜும்ரா</div></div>
-            <div class="stat-3d"><i class="fas fa-coins"></i><div class="stat-number-3d" id="statTotal">₹0</div><div>மொத்தம்</div></div>
-            <div class="stat-3d"><i class="fas fa-crown"></i><div class="stat-number-3d" id="statPerfect">0</div><div>சிறந்த</div></div>
-            <div class="stat-3d"><i class="fas fa-users"></i><div class="stat-number-3d" id="statStudents">0</div><div>மாணவர்</div></div>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-mosque"></i> உஸ்மானிய அரபிக் கல்லூரி</h1>
+            <span class="year-badge" onclick="app.openYearModal()">
+                <span id="yearDisplay">2026 - 2027</span>
+                <i class="fas fa-pen edit-icon"></i>
+            </span>
         </div>
 
-        <div class="action-bar-3d">
-            <input type="text" class="search-3d" id="searchBox" placeholder="🔍 பெயர் தேடு..." oninput="renderTableAndStats()">
-            <button class="btn-3d" onclick="addStudent()"><i class="fas fa-plus"></i> மாணவர் சேர்</button>
-            <button class="btn-3d" onclick="saveData()"><i class="fas fa-save"></i> சேமி</button>
-            <button class="btn-3d" onclick="editAllNames()"><i class="fas fa-pen"></i> பெயர்கள்</button>
-            <button class="btn-3d" onclick="resetCurrent()"><i class="fas fa-undo"></i> மீட்டமை</button>
+        <!-- JSON Export/Import -->
+        <div class="json-bar">
+            <button class="json-btn json-export" onclick="app.exportToJSON()">
+                <i class="fas fa-download"></i> JSON Export
+            </button>
+            <label class="json-btn json-import">
+                <i class="fas fa-upload"></i> JSON Import
+                <input type="file" accept=".json" onchange="app.importFromJSON(this)">
+            </label>
         </div>
 
-        <div class="table-wrapper-3d">
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>மாணவர்</th>
-                        <th>ஃ</th>
-                        <th>ஸு</th>
-                        <th>அ</th>
-                        <th>ம</th>
-                        <th>இ</th>
-                        <th>தஹ்</th>
-                        <th>₹</th>
-                        <th><i class="fas fa-trash"></i></th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody"></tbody>
-            </table>
+        <!-- Months -->
+        <div id="monthsSection" class="section active">
+            <div class="months-grid" id="monthsGrid"></div>
         </div>
-    </div>
-</div>
 
-<!-- Edit College Modal -->
-<div class="modal-islamic" id="collegeEditModal">
-    <div class="modal-3d-content">
-        <h3 style="text-align:center; color:#fade86; margin-bottom: 1rem;">கல்லூரி & வருடம்</h3>
-        <div style="margin: 1rem 0;">
-            <input type="text" id="editCollegeName" class="search-3d" style="width:100%; margin-bottom:1rem;" placeholder="கல்லூரி பெயர்">
-            <input type="text" id="editYearRange" class="search-3d" style="width:100%;" placeholder="வருடம் (எ.கா: 2026-27)">
-        </div>
-        <div style="display:flex; gap:1rem; justify-content:center;">
-            <button class="btn-3d" onclick="saveCollegeEdit()">சேமி</button>
-            <button class="btn-3d" onclick="closeCollegeEditModal()">மூடு</button>
-        </div>
-    </div>
-</div>
-
-<!-- Prayer Modal -->
-<div class="modal-islamic" id="prayerModal">
-    <div class="modal-3d-content">
-        <h3 style="text-align:center;color:#fadf8a; margin-bottom: 1rem;">தொழுகை நிலை</h3>
-        <p id="modalStudent" style="text-align:center;margin:1rem 0;font-size:1.2rem; color: #fbefcf;"></p>
-        <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
-            <div class="prayer-opt-3d" onclick="setPrayerStatus('prayed')">
-                <div style="font-size:2rem;">✅</div>
-                <div>தொழுதார்</div>
+        <!-- Days -->
+        <div id="daysSection" class="section">
+            <div class="section-header">
+                <h2 id="daysTitle"></h2>
+                <button class="btn" onclick="app.showMonths()"><i class="fas fa-arrow-left"></i> மாதங்கள்</button>
             </div>
-            <div class="prayer-opt-3d" onclick="setPrayerStatus('missed')">
-                <div style="font-size:2rem;">❌</div>
-                <div>வரவில்லை</div>
+            <div class="days-grid" id="daysGrid"></div>
+        </div>
+
+        <!-- Jumra -->
+        <div id="jumraSection" class="section">
+            <div class="section-header">
+                <h2 id="jumraTitle"></h2>
+                <button class="btn" onclick="app.showDays()"><i class="fas fa-arrow-left"></i> நாட்கள்</button>
             </div>
-            <div class="prayer-opt-3d" onclick="setPrayerStatus('partial')">
-                <div style="font-size:2rem;">◐</div>
-                <div>ஒரு ரக்அத்</div>
+            <div class="jumra-grid" id="jumraGrid"></div>
+        </div>
+
+        <!-- Students Table -->
+        <div id="studentsSection" class="section">
+            <div class="section-header">
+                <h2>📊 மாணவர் விவரங்கள்</h2>
+                <button class="btn" onclick="app.showJumras()"><i class="fas fa-arrow-left"></i> ஜும்ரா</button>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat-box">
+                    <i class="fas fa-calendar"></i>
+                    <div class="stat-value" id="statDate">-</div>
+                    <div>தேதி</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-moon"></i>
+                    <div class="stat-value" id="statJumra">-</div>
+                    <div>ஜும்ரா</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-coins"></i>
+                    <div class="stat-value" id="statTotal">₹0</div>
+                    <div>மொத்தம்</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-crown"></i>
+                    <div class="stat-value" id="statPerfect">0</div>
+                    <div>சிறந்த</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-value" id="statCount">0</div>
+                    <div>மாணவர்</div>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <input type="text" class="search-box" id="searchInput" placeholder="🔍 பெயர் தேடு..." oninput="app.renderStudents()">
+                <button class="btn" onclick="app.addStudent()"><i class="fas fa-plus"></i> சேர்</button>
+                <button class="btn" onclick="app.saveData()"><i class="fas fa-save"></i> சேமி</button>
+                <button class="btn" onclick="app.editNames()"><i class="fas fa-pen"></i> பெயர்கள்</button>
+                <button class="btn" onclick="app.resetData()"><i class="fas fa-undo"></i> மீட்டமை</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>மாணவர்</th>
+                            <th>ஃபஜ்ர்</th>
+                            <th>ஸுஹ்ர்</th>
+                            <th>அஸ்ர்</th>
+                            <th>மக்ரிப்</th>
+                            <th>இஷா</th>
+                            <th>தஹஜ்ஜுத்</th>
+                            <th>₹</th>
+                            <th>❌</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTable"></tbody>
+                </table>
             </div>
         </div>
-        <div style="text-align:center; margin-top:1.5rem;">
-            <button class="btn-3d" onclick="closeModal()">மூடு</button>
+    </div>
+
+    <!-- Year Edit Modal -->
+    <div class="modal-overlay" id="yearModal">
+        <div class="modal-box">
+            <h3 class="modal-title">📅 வருடத்தை மாற்று</h3>
+            <input type="text" class="input-field" id="yearInput" placeholder="எ.கா: 2026 - 2027">
+            <div style="display:flex; gap:1rem; justify-content:center;">
+                <button class="btn" onclick="app.saveYear()">சேமி</button>
+                <button class="btn" onclick="app.closeYearModal()">ரத்து</button>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Name Edit Modal -->
-<div class="modal-islamic" id="nameModal">
-    <div class="modal-3d-content">
-        <h4 style="color: #fade86; text-align: center; margin-bottom: 1rem;">பெயர் மாற்று</h4>
-        <input type="text" id="nameInput" class="search-3d" style="width:100%; margin:1rem 0;">
-        <div style="display:flex; gap:0.5rem; justify-content:center;">
-            <button class="btn-3d" onclick="saveName()">சேமி</button>
-            <button class="btn-3d" onclick="closeNameModal()">ரத்து</button>
+    <!-- Prayer Status Modal -->
+    <div class="modal-overlay" id="prayerModal">
+        <div class="modal-box">
+            <h3 class="modal-title" id="modalTitle"></h3>
+            <div class="prayer-options">
+                <div class="prayer-option" onclick="app.setPrayer('prayed')">
+                    <div class="icon">✅</div>
+                    <div>தொழுதார்</div>
+                </div>
+                <div class="prayer-option" onclick="app.setPrayer('missed')">
+                    <div class="icon">❌</div>
+                    <div>வரவில்லை</div>
+                </div>
+                <div class="prayer-option" onclick="app.setPrayer('partial')">
+                    <div class="icon">◐</div>
+                    <div>ஒரு ரக்அத்</div>
+                </div>
+            </div>
+            <button class="btn" onclick="app.closeModal()">மூடு</button>
         </div>
     </div>
-</div>
 
-<!-- Edit All Names Modal -->
-<div class="modal-islamic" id="editAllModal">
-    <div class="modal-3d-content" style="max-width:500px; max-height:70vh; overflow-y:auto;">
-        <h4 style="color: #fade86; text-align: center; margin-bottom: 1rem;">அனைத்து பெயர்கள்</h4>
-        <div id="allNamesContainer"></div>
-        <div style="display:flex; gap:0.5rem; margin-top:1rem; justify-content:center;">
-            <button class="btn-3d" onclick="saveAllNames()">சேமி</button>
-            <button class="btn-3d" onclick="closeEditAllModal()">மூடு</button>
+    <!-- Name Edit Modal -->
+    <div class="modal-overlay" id="nameModal">
+        <div class="modal-box">
+            <h3 class="modal-title">பெயர் மாற்று</h3>
+            <input type="text" class="input-field" id="nameInput">
+            <div style="display:flex; gap:1rem; justify-content:center;">
+                <button class="btn" onclick="app.saveName()">சேமி</button>
+                <button class="btn" onclick="app.closeNameModal()">ரத்து</button>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-// ========== WORKING CODE WITH ADD/DELETE STUDENTS ==========
-(function() {
-    'use strict';
-    
-    // Data
-    const calendarData = [
-        { month: 'மார்ச் 26', days: 31, startWeek: 0 },
-        { month: 'ஏப்ரல் 26', days: 30, startWeek: 3 },
-        { month: 'மே 26', days: 31, startWeek: 5 },
-        { month: 'ஜூன் 26', days: 30, startWeek: 1 },
-        { month: 'ஜூலை 26', days: 31, startWeek: 3 },
-        { month: 'ஆகஸ்ட் 26', days: 31, startWeek: 6 },
-        { month: 'செப் 26', days: 30, startWeek: 2 },
-        { month: 'அக்டோ 26', days: 31, startWeek: 4 },
-        { month: 'நவ 26', days: 30, startWeek: 0 },
-        { month: 'டிச 26', days: 31, startWeek: 2 },
-        { month: 'ஜன 27', days: 31, startWeek: 5 },
-        { month: 'பிப் 27', days: 28, startWeek: 1 },
-        { month: 'மார்ச் 27', days: 31, startWeek: 1 }
-    ];
-    
-    const weekDays = ['ஞாயிறு', 'திங்கள்', 'செவ்வாய்', 'புதன்', 'வியாழன்', 'வெள்ளி', 'சனி'];
-    const jumraNames = ['முதல் ஜும்ரா', 'இரண்டாம் ஜும்ரா', 'மூன்றாம் ஜும்ரா', 'நான்காம் ஜும்ரா', 'ஐந்தாம் ஜும்ரா'];
-    
-    const defaultNames = [
-        "அஹமது பாஷா", "முஹம்மது அலி", "அப்துல் ரஹ்மான்", "சித்தீக் அகமது", "ஹசன் முஹைதீன்",
-        "யூசுப் ஸாலிஹ்", "இப்ராஹிம் நுஹ்", "உமர் ஃபாரூக்", "உஸ்மான் அலி", "அலி இப்னு அபீதாலிப்",
-        "பிலால் இப்னு ரபாஹ்", "அபூபக்கர் ஸித்தீக்", "காலித் பின் வலீத்", "அம்ர் இப்னு அல் ஆஸ்", "சல்மான் அல் ஃபாரிஸி",
-        "அபூஹுரைரா", "அப்துல்லாஹ் இப்னு மஸ்ஊத்", "அப்துல்லாஹ் இப்னு அப்பாஸ்", "ஜாபிர் இப்னு அப்துல்லாஹ்", "அனஸ் இப்னு மாலிக்",
-        "சுஹைப் ரூமி", "அபூதர் கிஃபாரி", "மிஸ்அப் இப்னு உமைர்", "அப்துல்லாஹ் இப்னு உமர்", "ஸைத் இப்னு ஸாபித்",
-        "அப்துர் ரஸாக்", "முஹம்மது யூசுப்", "அப்துல் காதிர்", "முஹம்மது இஸ்மாயில்", "ஹசன் பஷா",
-        "இப்ராஹிம் அலி", "அப்துல் லத்தீப்", "முஹம்மது ஹனீப்", "அப்துல் ஹமீத்", "முஸ்தபா"
-    ];
+    <!-- Edit All Names Modal -->
+    <div class="modal-overlay" id="editAllModal">
+        <div class="modal-box" style="max-width:500px; max-height:80vh; overflow-y:auto;">
+            <h3 class="modal-title">அனைத்து பெயர்கள்</h3>
+            <div id="allNamesList"></div>
+            <div style="display:flex; gap:1rem; justify-content:center; margin-top:1rem;">
+                <button class="btn" onclick="app.saveAllNames()">சேமி</button>
+                <button class="btn" onclick="app.closeEditAllModal()">மூடு</button>
+            </div>
+        </div>
+    </div>
 
-    // State
-    let currentMonthIdx = null;
-    let currentDay = null;
-    let currentJumraIdx = null;
-    let data = {};
-    let currentEdit = null;
-    let currentNameEdit = null;
+    <script>
+        const app = (function() {
+            // Data
+            let currentYear = "2026 - 2027";
+            
+            const months = [
+                { name: 'மார்ச் 26', days: 31, start: 0 },
+                { name: 'ஏப்ரல் 26', days: 30, start: 3 },
+                { name: 'மே 26', days: 31, start: 5 },
+                { name: 'ஜூன் 26', days: 30, start: 1 },
+                { name: 'ஜூலை 26', days: 31, start: 3 },
+                { name: 'ஆகஸ்ட் 26', days: 31, start: 6 },
+                { name: 'செப் 26', days: 30, start: 2 },
+                { name: 'அக்டோ 26', days: 31, start: 4 },
+                { name: 'நவ 26', days: 30, start: 0 },
+                { name: 'டிச 26', days: 31, start: 2 },
+                { name: 'ஜன 27', days: 31, start: 5 },
+                { name: 'பிப் 27', days: 28, start: 1 },
+                { name: 'மார்ச் 27', days: 31, start: 1 }
+            ];
 
-    // Helper
-    function getStudentCountForJumra(j) { 
-        return j === 4 ? 35 : 30; 
-    }
+            const weekDays = ['ஞா', 'தி', 'செ', 'பு', 'வி', 'வெ', 'சனி'];
+            const jumraNames = ['முதல்', 'இரண்டாம்', 'மூன்றாம்', 'நான்காம்', 'ஐந்தாம்'];
+            const prayerNames = ['ஃபஜ்ர்', 'ஸுஹ்ர்', 'அஸ்ர்', 'மக்ரிப்', 'இஷா', 'தஹஜ்ஜுத்'];
 
-    // Load/Save with error handling
-    function loadData() {
-        try {
-            const saved = localStorage.getItem('usmaiyaDataV7'); // new version
-            if (saved) {
-                data = JSON.parse(saved);
-                if (!validateDataStructure()) {
-                    initializeData();
-                }
-            } else {
-                initializeData();
+            const defaultNames = [
+                "அஹமது பாஷா", "முஹம்மது அலி", "அப்துல் ரஹ்மான்", "சித்தீக்", "ஹசன்",
+                "யூசுப்", "இப்ராஹிம்", "உமர்", "உஸ்மான்", "அலி",
+                "பிலால்", "அபூபக்கர்", "காலித்", "அம்ர்", "சல்மான்",
+                "அபூஹுரைரா", "அப்துல்லாஹ்", "ஜாபிர்", "அனஸ்", "சுஹைப்",
+                "அபூதர்", "மிஸ்அப்", "ஸைத்", "அப்துர் ரஸாக்", "முஹம்மது யூசுப்",
+                "அப்துல் காதிர்", "இஸ்மாயில்", "ஹசன் பஷா", "இப்ராஹிம் அலி", "அப்துல் லத்தீப்"
+            ];
+
+            let current = { month: null, day: null, jumra: null };
+            let data = {};
+            let editing = { student: null, prayer: null, nameStudent: null };
+
+            function init() {
+                loadYear();
+                loadData();
+                renderMonths();
             }
-        } catch (e) {
-            console.error('Error loading data:', e);
-            initializeData();
-        }
-    }
 
-    function validateDataStructure() {
-        if (!data || typeof data !== 'object') return false;
-        return true;
-    }
+            function loadYear() {
+                const saved = localStorage.getItem('usmaiya_year');
+                if (saved) {
+                    currentYear = saved;
+                    document.getElementById('yearDisplay').textContent = currentYear;
+                }
+            }
 
-    function initializeData() {
-        data = {};
-        calendarData.forEach((month, mIdx) => {
-            data[mIdx] = {};
-            for (let d = 1; d <= month.days; d++) {
-                data[mIdx][d] = {};
-                jumraNames.forEach((_, jIdx) => {
-                    const count = getStudentCountForJumra(jIdx);
-                    data[mIdx][d][jIdx] = [];
-                    for (let i = 1; i <= count; i++) {
-                        data[mIdx][d][jIdx].push({
-                            id: i,
-                            name: defaultNames[i-1] || `மாணவர் ${i}`,
-                            prayers: { 
-                                fajr: null, 
-                                zuhr: null, 
-                                asr: null, 
-                                maghrib: null, 
-                                isha: null, 
-                                tahajjud: null 
+            function saveYearToStorage() {
+                localStorage.setItem('usmaiya_year', currentYear);
+                document.getElementById('yearDisplay').textContent = currentYear;
+            }
+
+            function loadData() {
+                const saved = localStorage.getItem('usmaiya_v2');
+                if (saved) {
+                    data = JSON.parse(saved);
+                } else {
+                    createDefaultData();
+                }
+            }
+
+            function createDefaultData() {
+                data = {};
+                months.forEach((m, mi) => {
+                    data[mi] = {};
+                    for (let d = 1; d <= m.days; d++) {
+                        data[mi][d] = {};
+                        for (let j = 0; j < 5; j++) {
+                            const count = j === 4 ? 35 : 30;
+                            data[mi][d][j] = [];
+                            for (let i = 1; i <= count; i++) {
+                                data[mi][d][j].push({
+                                    id: i,
+                                    name: defaultNames[i - 1] || `மாணவர் ${i}`,
+                                    p: [null, null, null, null, null, null]
+                                });
                             }
-                        });
+                        }
                     }
                 });
-            }
-        });
-        saveData();
-    }
-
-    function saveData() {
-        try {
-            localStorage.setItem('usmaiyaDataV7', JSON.stringify(data));
-            showNotification('✅ சேமிக்கப்பட்டது');
-            return true;
-        } catch (e) {
-            console.error('Error saving data:', e);
-            showNotification('❌ சேமிப்பில் பிழை');
-            return false;
-        }
-    }
-
-    function showNotification(msg) {
-        const div = document.createElement('div');
-        div.style.cssText = 'position:fixed; top:20px; right:20px; background:#b88e3f; padding:0.8rem 1.5rem; border-radius:30px; border:2px solid gold; z-index:9999; font-weight:bold; animation: slideIn 0.3s ease;';
-        div.textContent = msg;
-        document.body.appendChild(div);
-        setTimeout(() => {
-            div.style.animation = 'slideOut 0.3s ease';
-            setTimeout(() => div.remove(), 300);
-        }, 1500);
-    }
-
-    // Add animation styles
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
-    `;
-    document.head.appendChild(style);
-
-    // ========== RENDERING FUNCTIONS ==========
-    function renderMonths() {
-        const container = document.getElementById('monthsContainer');
-        container.innerHTML = '';
-        calendarData.forEach((month, idx) => {
-            const div = document.createElement('div');
-            div.className = `month-3d ${idx === currentMonthIdx ? 'active' : ''}`;
-            div.innerHTML = `
-                <i class="fas fa-calendar-alt"></i>
-                <div style="font-weight: 600; margin: 0.3rem 0;">${month.month}</div>
-                <div style="font-size: 0.8rem; opacity: 0.8;">${month.days} நாட்கள்</div>
-            `;
-            div.onclick = () => selectMonth(idx);
-            container.appendChild(div);
-        });
-    }
-
-    function selectMonth(idx) {
-        currentMonthIdx = idx;
-        currentDay = null;
-        currentJumraIdx = null;
-        renderMonths();
-        
-        document.getElementById('monthsContainer').style.display = 'grid';
-        document.getElementById('daysSection').classList.remove('hidden');
-        document.getElementById('jumraSection').classList.add('hidden');
-        document.getElementById('statsPanel').style.display = 'none';
-        renderDays();
-    }
-
-    function renderDays() {
-        const month = calendarData[currentMonthIdx];
-        document.getElementById('daysTitle').innerHTML = `<i class="fas fa-calendar"></i> ${month.month}`;
-        
-        const grid = document.getElementById('daysGrid');
-        grid.innerHTML = '';
-        
-        for (let d = 1; d <= month.days; d++) {
-            const wd = weekDays[(month.startWeek + d - 1) % 7];
-            const div = document.createElement('div');
-            div.className = `day-cube ${d === currentDay ? 'active' : ''}`;
-            div.innerHTML = `
-                <div class="big-number">${d}</div>
-                <div style="font-size: 0.75rem; margin-top: 0.2rem;">${wd}</div>
-            `;
-            div.onclick = () => selectDay(d);
-            grid.appendChild(div);
-        }
-    }
-
-    function selectDay(day) {
-        currentDay = day;
-        currentJumraIdx = null;
-        renderDays();
-        
-        document.getElementById('daysSection').classList.add('hidden');
-        document.getElementById('jumraSection').classList.remove('hidden');
-        document.getElementById('statsPanel').style.display = 'none';
-        renderJumras();
-    }
-
-    function renderJumras() {
-        const month = calendarData[currentMonthIdx];
-        document.getElementById('jumraTitle').innerHTML = `<i class="fas fa-star"></i> ${month.month} ${currentDay}`;
-        
-        const container = document.getElementById('jumraContainer');
-        container.innerHTML = '';
-        
-        jumraNames.forEach((name, idx) => {
-            const count = data[currentMonthIdx][currentDay][idx]?.length || getStudentCountForJumra(idx);
-            const div = document.createElement('div');
-            div.className = `jumra-3d ${idx === currentJumraIdx ? 'active' : ''}`;
-            div.setAttribute('data-jumra', idx);
-            div.innerHTML = `
-                <div class="jumra-num-3d">${idx+1}</div>
-                <div style="font-weight: 600; margin: 0.3rem 0;">${name}</div>
-                <span class="student-badge-3d"><i class="fas fa-user"></i> ${count}</span>
-            `;
-            div.onclick = () => selectJumra(idx);
-            container.appendChild(div);
-        });
-    }
-
-    function selectJumra(idx) {
-        currentJumraIdx = idx;
-        renderJumras();
-        
-        document.getElementById('jumraSection').classList.add('hidden');
-        document.getElementById('statsPanel').style.display = 'block';
-        renderTableAndStats();
-    }
-
-    // Back navigation functions
-    window.backToJumra = function() {
-        document.getElementById('statsPanel').style.display = 'none';
-        document.getElementById('jumraSection').classList.remove('hidden');
-    };
-
-    window.showDays = function() {
-        document.getElementById('jumraSection').classList.add('hidden');
-        document.getElementById('daysSection').classList.remove('hidden');
-        currentJumraIdx = null;
-        renderDays();
-    };
-
-    window.showMonths = function() {
-        document.getElementById('daysSection').classList.add('hidden');
-        document.getElementById('jumraSection').classList.add('hidden');
-        document.getElementById('statsPanel').style.display = 'none';
-        document.getElementById('monthsContainer').style.display = 'grid';
-        currentMonthIdx = null;
-        currentDay = null;
-        currentJumraIdx = null;
-        renderMonths();
-    };
-
-    // ========== TABLE FUNCTIONS ==========
-    function getStatusClass(s) {
-        if (s === 'prayed') return 'prayed';
-        if (s === 'missed') return 'missed';
-        if (s === 'partial') return 'partial';
-        return '';
-    }
-
-    function getIcon(s) {
-        if (s === 'prayed') return '✓';
-        if (s === 'missed') return '✕';
-        if (s === 'partial') return '◐';
-        return '○';
-    }
-
-    function calculateAmount(student) {
-        let prayed = 0, partial = 0, missed = 0;
-        const prayers = student.prayers;
-        
-        Object.values(prayers).forEach(v => {
-            if (v === 'prayed') prayed++;
-            else if (v === 'partial') partial++;
-            else if (v === 'missed') missed++;
-        });
-        
-        let total = 50 - (missed * 8) - (partial * 4);
-        return Math.max(0, total);
-    }
-
-    window.renderTableAndStats = function() {
-        if (currentMonthIdx === null || currentDay === null || currentJumraIdx === null) return;
-        
-        const students = data[currentMonthIdx][currentDay][currentJumraIdx];
-        const filter = document.getElementById('searchBox').value.toLowerCase();
-        
-        let total = 0, perfect = 0;
-        students.forEach(s => {
-            const amt = calculateAmount(s);
-            total += amt;
-            if (Object.values(s.prayers).every(v => v === 'prayed')) perfect++;
-        });
-        
-        document.getElementById('statDate').innerText = `${calendarData[currentMonthIdx].month} ${currentDay}`;
-        document.getElementById('statJumra').innerText = jumraNames[currentJumraIdx];
-        document.getElementById('statTotal').innerText = `₹${total}`;
-        document.getElementById('statPerfect').innerText = perfect;
-        document.getElementById('statStudents').innerText = students.length;
-        
-        const tbody = document.getElementById('tableBody');
-        tbody.innerHTML = '';
-        
-        students.forEach(student => {
-            if (filter && !student.name.toLowerCase().includes(filter)) return;
-            
-            const amount = calculateAmount(student);
-            const row = document.createElement('tr');
-            
-            row.innerHTML = `
-                <td style="color:#f0c966; font-weight: 600;">${student.id}</td>
-                <td class="student-3d" onclick="openNameModal(${student.id})">${student.name}</td>
-                <td><button class="prayer-btn-3d ${getStatusClass(student.prayers.fajr)}" onclick="openPrayerModal(${student.id},'fajr')">${getIcon(student.prayers.fajr)}</button></td>
-                <td><button class="prayer-btn-3d ${getStatusClass(student.prayers.zuhr)}" onclick="openPrayerModal(${student.id},'zuhr')">${getIcon(student.prayers.zuhr)}</button></td>
-                <td><button class="prayer-btn-3d ${getStatusClass(student.prayers.asr)}" onclick="openPrayerModal(${student.id},'asr')">${getIcon(student.prayers.asr)}</button></td>
-                <td><button class="prayer-btn-3d ${getStatusClass(student.prayers.maghrib)}" onclick="openPrayerModal(${student.id},'maghrib')">${getIcon(student.prayers.maghrib)}</button></td>
-                <td><button class="prayer-btn-3d ${getStatusClass(student.prayers.isha)}" onclick="openPrayerModal(${student.id},'isha')">${getIcon(student.prayers.isha)}</button></td>
-                <td><button class="prayer-btn-3d ${getStatusClass(student.prayers.tahajjud)}" onclick="openPrayerModal(${student.id},'tahajjud')">${getIcon(student.prayers.tahajjud)}</button></td>
-                <td class="${amount > 0 ? 'amount-positive' : 'amount-negative'}">₹${amount}</td>
-                <td><button class="delete-btn" onclick="deleteStudent(${student.id})"><i class="fas fa-trash-alt"></i></button></td>
-            `;
-            tbody.appendChild(row);
-        });
-    };
-
-    // ========== ADD / DELETE STUDENTS ==========
-    window.addStudent = function() {
-        if (currentMonthIdx === null || currentDay === null || currentJumraIdx === null) return;
-        
-        const students = data[currentMonthIdx][currentDay][currentJumraIdx];
-        const newId = students.length + 1;
-        const newName = `புதிய மாணவர் ${newId}`;
-        
-        students.push({
-            id: newId,
-            name: newName,
-            prayers: { fajr: null, zuhr: null, asr: null, maghrib: null, isha: null, tahajjud: null }
-        });
-        
-        saveData();
-        renderTableAndStats();
-        showNotification('➕ மாணவர் சேர்க்கப்பட்டார்');
-    };
-
-    window.deleteStudent = function(studentId) {
-        if (!confirm('இந்த மாணவரை நீக்கவா?')) return;
-        
-        let students = data[currentMonthIdx][currentDay][currentJumraIdx];
-        students = students.filter(s => s.id !== studentId);
-        data[currentMonthIdx][currentDay][currentJumraIdx] = students;
-        
-        // renumber ids
-        students.forEach((s, idx) => { s.id = idx + 1; });
-        
-        saveData();
-        renderTableAndStats();
-        showNotification('🗑️ மாணவர் நீக்கப்பட்டார்');
-    };
-
-    // ========== MODAL FUNCTIONS ==========
-    window.openPrayerModal = function(studentId, prayer) {
-        const student = data[currentMonthIdx][currentDay][currentJumraIdx].find(s => s.id === studentId);
-        if (!student) return;
-        
-        currentEdit = { studentId, prayer };
-        
-        const prayerNames = { 
-            fajr: 'ஃபஜ்ர்', 
-            zuhr: 'ஸுஹ்ர்', 
-            asr: 'அஸ்ர்', 
-            maghrib: 'மக்ரிப்', 
-            isha: 'இஷா', 
-            tahajjud: 'தஹஜ்ஜுத்' 
-        };
-        document.getElementById('modalStudent').innerText = `${student.name} - ${prayerNames[prayer]}`;
-        document.getElementById('prayerModal').style.display = 'flex';
-    };
-
-    window.setPrayerStatus = function(status) {
-        if (!currentEdit) return;
-        
-        const student = data[currentMonthIdx][currentDay][currentJumraIdx].find(s => s.id === currentEdit.studentId);
-        if (student) {
-            student.prayers[currentEdit.prayer] = status;
-            closeModal();
-            renderTableAndStats();
-            saveData();
-        }
-    };
-
-    window.closeModal = function() {
-        document.getElementById('prayerModal').style.display = 'none';
-        currentEdit = null;
-    };
-
-    window.openNameModal = function(studentId) {
-        currentNameEdit = studentId;
-        const student = data[currentMonthIdx][currentDay][currentJumraIdx].find(s => s.id === studentId);
-        if (student) {
-            document.getElementById('nameInput').value = student.name;
-            document.getElementById('nameModal').style.display = 'flex';
-        }
-    };
-
-    window.closeNameModal = function() {
-        document.getElementById('nameModal').style.display = 'none';
-        currentNameEdit = null;
-    };
-
-    window.saveName = function() {
-        if (!currentNameEdit) return;
-        
-        const newName = document.getElementById('nameInput').value.trim();
-        if (newName) {
-            const student = data[currentMonthIdx][currentDay][currentJumraIdx].find(s => s.id === currentNameEdit);
-            if (student) {
-                student.name = newName;
-                closeNameModal();
-                renderTableAndStats();
                 saveData();
             }
-        }
-    };
 
-    window.editAllNames = function() {
-        const container = document.getElementById('allNamesContainer');
-        container.innerHTML = '';
-        
-        const students = data[currentMonthIdx][currentDay][currentJumraIdx];
-        students.forEach(s => {
-            const wrapper = document.createElement('div');
-            wrapper.style.marginBottom = '8px';
-            
-            const label = document.createElement('div');
-            label.textContent = `${s.id}.`;
-            label.style.color = '#f0c966';
-            label.style.fontSize = '0.8rem';
-            label.style.marginBottom = '2px';
-            
-            const input = document.createElement('input');
-            input.className = 'search-3d';
-            input.style.width = '100%';
-            input.value = s.name;
-            input.id = `allname-${s.id}`;
-            
-            wrapper.appendChild(label);
-            wrapper.appendChild(input);
-            container.appendChild(wrapper);
-        });
-        
-        document.getElementById('editAllModal').style.display = 'flex';
-    };
-
-    window.closeEditAllModal = function() {
-        document.getElementById('editAllModal').style.display = 'none';
-    };
-
-    window.saveAllNames = function() {
-        const students = data[currentMonthIdx][currentDay][currentJumraIdx];
-        let hasChanges = false;
-        
-        students.forEach(s => {
-            const input = document.getElementById(`allname-${s.id}`);
-            if (input && input.value.trim()) {
-                if (s.name !== input.value.trim()) {
-                    s.name = input.value.trim();
-                    hasChanges = true;
+            function saveData() {
+                try {
+                    const json = JSON.stringify(data);
+                    localStorage.setItem('usmaiya_v2', json);
+                    showToast(`சேமிக்கப்பட்டது (${(json.length/1024).toFixed(1)} KB)`);
+                    return true;
+                } catch (e) {
+                    alert('சேமிப்பில் பிழை: ' + e.message);
+                    return false;
                 }
             }
-        });
-        
-        closeEditAllModal();
-        renderTableAndStats();
-        if (hasChanges) saveData();
-    };
 
-    window.resetCurrent = function() {
-        if (!confirm('இந்த ஜும்ராவின் அனைத்து தரவுகளையும் மீட்டமைக்கவா? இது அனைத்து தொழுகை பதிவுகளையும் அழிக்கும்!')) return;
-        
-        const count = getStudentCountForJumra(currentJumraIdx);
-        const newStudents = [];
-        
-        for (let i = 1; i <= count; i++) {
-            newStudents.push({
-                id: i,
-                name: defaultNames[i-1] || `மாணவர் ${i}`,
-                prayers: { 
-                    fajr: null, 
-                    zuhr: null, 
-                    asr: null, 
-                    maghrib: null, 
-                    isha: null, 
-                    tahajjud: null 
+            // ========== YEAR EDIT ==========
+            function openYearModal() {
+                document.getElementById('yearInput').value = currentYear;
+                document.getElementById('yearModal').classList.add('active');
+            }
+
+            function closeYearModal() {
+                document.getElementById('yearModal').classList.remove('active');
+            }
+
+            function saveYear() {
+                const newYear = document.getElementById('yearInput').value.trim();
+                if (!newYear) {
+                    alert('வருடத்தை உள்ளிடவும்!');
+                    return;
                 }
+                currentYear = newYear;
+                saveYearToStorage();
+                closeYearModal();
+                showToast(`✅ வருடம் மாற்றப்பட்டது: ${currentYear}`);
+            }
+
+            // ========== JSON EXPORT/IMPORT ==========
+            function exportToJSON() {
+                const exportData = {
+                    app: 'உஸ்மானியா - தஹஜ்ஜுத் Tracker',
+                    version: '2.0',
+                    year: currentYear,
+                    exportedAt: new Date().toISOString(),
+                    months: months,
+                    data: data
+                };
+                
+                const jsonString = JSON.stringify(exportData, null, 2);
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `usmaiya_${currentYear.replace(/\s/g, '_')}_${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showToast(`✅ Exported! (${(jsonString.length/1024).toFixed(1)} KB)`);
+            }
+
+            function importFromJSON(input) {
+                const file = input.files[0];
+                if (!file) return;
+                
+                if (!file.name.endsWith('.json')) {
+                    alert('❌ JSON file மட்டுமே ஏற்றுக்கொள்ளப்படும்!');
+                    input.value = '';
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const importData = JSON.parse(e.target.result);
+                        
+                        // Validate structure
+                        if (!importData.data || typeof importData.data !== 'object') {
+                            throw new Error('Invalid: data object not found');
+                        }
+                        
+                        // Import year if available
+                        if (importData.year) {
+                            currentYear = importData.year;
+                            saveYearToStorage();
+                        }
+                        
+                        // Validate months count
+                        const monthKeys = Object.keys(importData.data);
+                        if (monthKeys.length !== 13) {
+                            throw new Error(`Expected 13 months, found ${monthKeys.length}`);
+                        }
+                        
+                        if (confirm(`📥 Import செய்யவா?\n\n✓ Year: ${importData.year || 'Unknown'}\n✓ Exported: ${importData.exportedAt ? new Date(importData.exportedAt).toLocaleString('ta-IN') : 'Unknown'}\n✓ Months: ${monthKeys.length}\n\n⚠️ Current data REPLACE ஆகும்!`)) {
+                            
+                            data = importData.data;
+                            saveData();
+                            
+                            // Reset view
+                            current = { month: null, day: null, jumra: null };
+                            showSection('monthsSection');
+                            renderMonths();
+                            
+                            showToast(`✅ ${monthKeys.length} months imported!`);
+                        }
+                    } catch (err) {
+                        alert('❌ Error: ' + err.message);
+                    }
+                    input.value = '';
+                };
+                
+                reader.onerror = () => {
+                    alert('❌ File read error');
+                    input.value = '';
+                };
+                
+                reader.readAsText(file);
+            }
+
+            function showToast(msg) {
+                const div = document.createElement('div');
+                div.style.cssText = 'position:fixed; top:20px; right:20px; background:#c9a227; color:#0d3329; padding:1rem 1.5rem; border-radius:10px; font-weight:bold; z-index:9999; animation:fadeIn 0.3s;';
+                div.textContent = msg;
+                document.body.appendChild(div);
+                setTimeout(() => div.remove(), 3000);
+            }
+
+            // Navigation
+            function renderMonths() {
+                const grid = document.getElementById('monthsGrid');
+                grid.innerHTML = '';
+                months.forEach((m, i) => {
+                    const div = document.createElement('div');
+                    div.className = `month-card ${current.month === i ? 'active' : ''}`;
+                    div.innerHTML = `<i class="fas fa-calendar"></i><div class="month-name">${m.name}</div><div style="font-size:0.9rem; opacity:0.8;">${m.days} நாட்கள்</div>`;
+                    div.onclick = () => selectMonth(i);
+                    grid.appendChild(div);
+                });
+            }
+
+            function selectMonth(i) {
+                current.month = i;
+                current.day = null;
+                current.jumra = null;
+                showSection('daysSection');
+                renderDays();
+            }
+
+            function renderDays() {
+                const m = months[current.month];
+                document.getElementById('daysTitle').innerHTML = `<i class="fas fa-calendar-day"></i> ${m.name}`;
+                
+                const grid = document.getElementById('daysGrid');
+                grid.innerHTML = '';
+                
+                for (let d = 1; d <= m.days; d++) {
+                    const wd = weekDays[(m.start + d - 1) % 7];
+                    const div = document.createElement('div');
+                    div.className = `day-card ${current.day === d ? 'active' : ''}`;
+                    div.innerHTML = `<div class="day-number">${d}</div><div class="day-week">${wd}</div>`;
+                    div.onclick = () => selectDay(d);
+                    grid.appendChild(div);
+                }
+            }
+
+            function selectDay(d) {
+                current.day = d;
+                current.jumra = null;
+                showSection('jumraSection');
+                renderJumras();
+            }
+
+            function renderJumras() {
+                const m = months[current.month];
+                document.getElementById('jumraTitle').innerHTML = `<i class="fas fa-star"></i> ${m.name} - ${current.day}`;
+                
+                const grid = document.getElementById('jumraGrid');
+                grid.innerHTML = '';
+                
+                jumraNames.forEach((name, i) => {
+                    const students = data[current.month][current.day][i];
+                    const div = document.createElement('div');
+                    div.className = `jumra-card ${current.jumra === i ? 'active' : ''}`;
+                    div.innerHTML = `
+                        <div class="jumra-number">${i + 1}</div>
+                        <div class="jumra-name">${name} ஜும்ரா</div>
+                        <span class="student-count"><i class="fas fa-user"></i> ${students.length}</span>
+                    `;
+                    div.onclick = () => selectJumra(i);
+                    grid.appendChild(div);
+                });
+            }
+
+            function selectJumra(j) {
+                current.jumra = j;
+                showSection('studentsSection');
+                renderStudents();
+            }
+
+            function showSection(id) {
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.getElementById(id).classList.add('active');
+            }
+
+            // Students
+            function renderStudents() {
+                const students = data[current.month][current.day][current.jumra];
+                const search = document.getElementById('searchInput').value.toLowerCase();
+                
+                // Stats
+                let total = 0, perfect = 0;
+                students.forEach(s => {
+                    total += calculateAmount(s);
+                    if (s.p.every(v => v === 'prayed')) perfect++;
+                });
+                
+                document.getElementById('statDate').textContent = `${months[current.month].name} ${current.day}`;
+                document.getElementById('statJumra').textContent = jumraNames[current.jumra];
+                document.getElementById('statTotal').textContent = `₹${total}`;
+                document.getElementById('statPerfect').textContent = perfect;
+                document.getElementById('statCount').textContent = students.length;
+                
+                // Table
+                const tbody = document.getElementById('studentsTable');
+                tbody.innerHTML = '';
+                
+                students.forEach(s => {
+                    if (search && !s.name.toLowerCase().includes(search)) return;
+                    
+                    const amount = calculateAmount(s);
+                    const row = document.createElement('tr');
+                    
+                    let cells = `<td style="color:#f0c674; font-weight:bold;">${s.id}</td>`;
+                    cells += `<td class="student-name" onclick="app.openNameModal(${s.id})">${s.name}</td>`;
+                    
+                    s.p.forEach((status, pi) => {
+                        const cls = status || '';
+                        const icon = status === 'prayed' ? '✓' : status === 'missed' ? '✕' : status === 'partial' ? '◐' : '○';
+                        cells += `<td><button class="prayer-btn ${cls}" onclick="app.openPrayerModal(${s.id}, ${pi})">${icon}</button></td>`;
+                    });
+                    
+                    cells += `<td class="amount ${amount > 0 ? 'positive' : 'negative'}">₹${amount}</td>`;
+                    cells += `<td><button class="delete-btn" onclick="app.deleteStudent(${s.id})"><i class="fas fa-trash"></i></button></td>`;
+                    
+                    row.innerHTML = cells;
+                    tbody.appendChild(row);
+                });
+            }
+
+            function calculateAmount(s) {
+                let missed = 0, partial = 0;
+                s.p.forEach(v => {
+                    if (v === 'missed') missed++;
+                    else if (v === 'partial') partial++;
+                });
+                return Math.max(0, 50 - (missed * 8) - (partial * 4));
+            }
+
+            // Actions
+            function addStudent() {
+                const students = data[current.month][current.day][current.jumra];
+                const newId = students.length + 1;
+                students.push({
+                    id: newId,
+                    name: `மாணவர் ${newId}`,
+                    p: [null, null, null, null, null, null]
+                });
+                saveData();
+                renderStudents();
+            }
+
+            function deleteStudent(id) {
+                if (!confirm('நீக்கவா?')) return;
+                let students = data[current.month][current.day][current.jumra];
+                students = students.filter(s => s.id !== id);
+                students.forEach((s, i) => s.id = i + 1);
+                data[current.month][current.day][current.jumra] = students;
+                saveData();
+                renderStudents();
+            }
+
+            // Modals
+            function openPrayerModal(sid, pid) {
+                editing.student = sid;
+                editing.prayer = pid;
+                const s = data[current.month][current.day][current.jumra].find(x => x.id === sid);
+                document.getElementById('modalTitle').textContent = `${s.name} - ${prayerNames[pid]}`;
+                document.getElementById('prayerModal').classList.add('active');
+            }
+
+            function setPrayer(status) {
+                const s = data[current.month][current.day][current.jumra].find(x => x.id === editing.student);
+                if (s) {
+                    s.p[editing.prayer] = status;
+                    saveData();
+                    renderStudents();
+                }
+                closeModal();
+            }
+
+            function closeModal() {
+                document.getElementById('prayerModal').classList.remove('active');
+                editing.student = null;
+                editing.prayer = null;
+            }
+
+            function openNameModal(sid) {
+                editing.nameStudent = sid;
+                const s = data[current.month][current.day][current.jumra].find(x => x.id === sid);
+                document.getElementById('nameInput').value = s.name;
+                document.getElementById('nameModal').classList.add('active');
+            }
+
+            function saveName() {
+                const name = document.getElementById('nameInput').value.trim();
+                if (!name) return;
+                const s = data[current.month][current.day][current.jumra].find(x => x.id === editing.nameStudent);
+                if (s) {
+                    s.name = name;
+                    saveData();
+                    renderStudents();
+                }
+                closeNameModal();
+            }
+
+            function closeNameModal() {
+                document.getElementById('nameModal').classList.remove('active');
+                editing.nameStudent = null;
+            }
+
+            function editNames() {
+                const container = document.getElementById('allNamesList');
+                container.innerHTML = '';
+                const students = data[current.month][current.day][current.jumra];
+                
+                students.forEach(s => {
+                    const div = document.createElement('div');
+                    div.style.marginBottom = '10px';
+                    div.innerHTML = `
+                        <div style="color:#f0c674; font-size:0.85rem; margin-bottom:3px;">${s.id}.</div>
+                        <input type="text" class="input-field" id="name-${s.id}" value="${s.name}" style="margin:0;">
+                    `;
+                    container.appendChild(div);
+                });
+                
+                document.getElementById('editAllModal').classList.add('active');
+            }
+
+            function saveAllNames() {
+                const students = data[current.month][current.day][current.jumra];
+                students.forEach(s => {
+                    const input = document.getElementById(`name-${s.id}`);
+                    if (input && input.value.trim()) {
+                        s.name = input.value.trim();
+                    }
+                });
+                saveData();
+                renderStudents();
+                closeEditAllModal();
+            }
+
+            function closeEditAllModal() {
+                document.getElementById('editAllModal').classList.remove('active');
+            }
+
+            function resetData() {
+                if (!confirm('அனைத்து தொழுகை பதிவுகளும் அழியும்! நிச்சயமாக?')) return;
+                const count = current.jumra === 4 ? 35 : 30;
+                const students = [];
+                for (let i = 1; i <= count; i++) {
+                    students.push({
+                        id: i,
+                        name: defaultNames[i - 1] || `மாணவர் ${i}`,
+                        p: [null, null, null, null, null, null]
+                    });
+                }
+                data[current.month][current.day][current.jumra] = students;
+                saveData();
+                renderStudents();
+            }
+
+            // Public API
+            return {
+                init,
+                openYearModal,
+                closeYearModal,
+                saveYear,
+                exportToJSON,
+                importFromJSON,
+                showMonths: () => { current.month = null; showSection('monthsSection'); renderMonths(); },
+                showDays: () => { current.jumra = null; showSection('daysSection'); renderDays(); },
+                showJumras: () => { current.jumra = null; showSection('jumraSection'); renderJumras(); },
+                renderStudents,
+                addStudent,
+                deleteStudent,
+                openPrayerModal,
+                setPrayer,
+                closeModal,
+                openNameModal,
+                saveName,
+                closeNameModal,
+                editNames,
+                saveAllNames,
+                closeEditAllModal,
+                resetData,
+                saveData
+            };
+        })();
+
+        // Start
+        document.addEventListener('DOMContentLoaded', app.init);
+
+        // Close modals on outside click
+        document.querySelectorAll('.modal-overlay').forEach(m => {
+            m.addEventListener('click', (e) => {
+                if (e.target === m) m.classList.remove('active');
             });
-        }
-        
-        data[currentMonthIdx][currentDay][currentJumraIdx] = newStudents;
-        renderTableAndStats();
-        saveData();
-        showNotification('🔄 மீட்டமைக்கப்பட்டது');
-    };
-
-    // ========== COLLEGE EDIT FUNCTIONS ==========
-    window.openCollegeEditModal = function() {
-        const currentTitle = document.getElementById('collegeTitle').innerText.replace('🕌', '').trim();
-        document.getElementById('editCollegeName').value = currentTitle;
-        document.getElementById('editYearRange').value = document.getElementById('yearText').innerText;
-        document.getElementById('collegeEditModal').style.display = 'flex';
-    };
-
-    window.closeCollegeEditModal = function() {
-        document.getElementById('collegeEditModal').style.display = 'none';
-    };
-
-    window.saveCollegeEdit = function() {
-        const newName = document.getElementById('editCollegeName').value.trim();
-        const newYear = document.getElementById('editYearRange').value.trim();
-        
-        if (newName) {
-            document.getElementById('collegeTitle').innerHTML = '<i class="fas fa-mosque"></i> ' + newName;
-        }
-        if (newYear) {
-            document.getElementById('yearText').innerText = newYear;
-        }
-        
-        closeCollegeEditModal();
-        showNotification('✅ பெயர்/வருடம் சேமிக்கப்பட்டது');
-    };
-
-    // Close modals on outside click
-    document.querySelectorAll('.modal-islamic').forEach(modal => {
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
-            }
         });
-    });
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            document.querySelectorAll('.modal-islamic').forEach(m => m.style.display = 'none');
-        }
-    });
-
-    // ========== INITIALIZE ==========
-    loadData();
-    renderMonths();
-})();
-</script>
+    </script>
 </body>
 </html>
